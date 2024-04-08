@@ -17,9 +17,14 @@ import interp2D
 
 try:
     import ESMF
-except ImportError:
-    print("Could not find module ESMF")
-    pass
+except:
+    try:
+        # The module name for ESMPy was changed in v8.4.0 from “ESMF” to “esmpy”
+        import esmpy as ESMF
+    except ImportError:
+        print("[model2roms.py]: could not find module ESMF/esmpy.")
+        pass
+
 __author__ = 'Trond Kristiansen'
 __email__ = 'trond.kristiansen@niva.no'
 __created__ = datetime(2008, 8, 15)

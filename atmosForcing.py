@@ -10,9 +10,13 @@ import grd
 
 try:
     import ESMF
-except ImportError:
-    print("Could not find module ESMF. Required")
-    sys.exit()
+except:
+    try:
+        # The module name for ESMPy was changed in v8.4.0 from “ESMF” to “esmpy”
+        import esmpy as ESMF
+    except ImportError:
+        raise ImportError("[atmosForcing]: Could not find module ESMF/esmpy. Required")
+        sys.exit()
 
 _author_   = 'Trond Kristiansen'
 _email_    = 'me@trondkristiansen.com'

@@ -6,9 +6,13 @@ import numpy as np
 
 try:
     import ESMF
-except ImportError:
-    logging.error("[M2R_interp2D] Could not find module ESMF")
-    pass
+except:
+    try:
+        # The module name for ESMPy was changed in v8.4.0 from “ESMF” to “esmpy”
+        import esmpy as ESMF
+    except ImportError:
+        logging.error("[M2R_interp2D] Could not find module ESMF/esmpy")
+        pass
 
 __author__ = "Trond Kristiansen"
 __email__ = "me@trondkristiansen.com"
