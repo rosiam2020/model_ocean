@@ -45,7 +45,7 @@ def vertical_interpolation(myvar, array1, array2, grdROMS, grdMODEL):
     if myvar in ['salinity', 'temperature', 'O3_c', 'O3_TA', 'N1_p', 'N3_n', 'N5_s', 'O2_o']:
         logging.info(
             'Start vertical interpolation for {} (dimensions={} x {})'.format(myvar, grdROMS.xi_rho, grdROMS.eta_rho))
-        outdata = np.empty((outINDEX_ST), dtype=np.float, order='F')
+        outdata = np.empty((outINDEX_ST), dtype=float, order='F')
 
         outdata = interp.interpolation.dovertinter(np.asarray(outdata, order='F'),
                                                    np.asarray(array1, order='F'),
@@ -71,8 +71,8 @@ def vertical_interpolation(myvar, array1, array2, grdROMS, grdMODEL):
 
     if myvar == 'vvel':
         logging.info('Start vertical interpolation for uvel (dimensions={} x {})'.format(grdROMS.xi_u, grdROMS.eta_u))
-        outdataU = np.zeros((outINDEX_U), dtype=np.float)
-        outdataUBAR = np.zeros((outINDEX_UBAR), dtype=np.float)
+        outdataU = np.zeros((outINDEX_U), dtype=float)
+        outdataUBAR = np.zeros((outINDEX_UBAR), dtype=float)
 
         outdataU = interp.interpolation.dovertinter(np.asarray(outdataU, order='F'),
                                                     np.asarray(array1, order='F'),
@@ -89,8 +89,8 @@ def vertical_interpolation(myvar, array1, array2, grdROMS, grdMODEL):
         outdataU = np.ma.masked_where(abs(outdataU) > 1000, outdataU)
 
         logging.info('Start vertical interpolation for vvel (dimensions={} x {})'.format(grdROMS.xi_v, grdROMS.eta_v))
-        outdataV = np.zeros((outINDEX_V), dtype=np.float)
-        outdataVBAR = np.zeros((outINDEX_VBAR), dtype=np.float)
+        outdataV = np.zeros((outINDEX_V), dtype=float)
+        outdataVBAR = np.zeros((outINDEX_VBAR), dtype=float)
 
         outdataV = interp.interpolation.dovertinter(np.asarray(outdataV, order='F'),
                                                     np.asarray(array2, order='F'),
@@ -106,8 +106,8 @@ def vertical_interpolation(myvar, array1, array2, grdROMS, grdMODEL):
 
         outdataV = np.ma.masked_where(abs(outdataV) > 1000, outdataV)
 
-        z_wu = np.zeros((grdROMS.nlevels + 1, grdROMS.eta_u, grdROMS.xi_u), dtype=np.float)
-        z_wv = np.zeros((grdROMS.nlevels + 1, grdROMS.eta_v, grdROMS.xi_v), dtype=np.float)
+        z_wu = np.zeros((grdROMS.nlevels + 1, grdROMS.eta_u, grdROMS.xi_u), dtype=float)
+        z_wv = np.zeros((grdROMS.nlevels + 1, grdROMS.eta_v, grdROMS.xi_v), dtype=float)
 
         outdataUBAR = barotropic.velocity.ubar(np.asarray(outdataU, order='F'),
                                                np.asarray(outdataUBAR, order='F'),
@@ -144,8 +144,8 @@ def rotate(grdROMS, grdMODEL, data, u, v):
     the rho point values to U and V points and save the result
     """
 
-    urot = np.zeros((int(grdMODEL.nlevels), int(grdROMS.eta_rho), int(grdROMS.xi_rho)), np.float)
-    vrot = np.zeros((int(grdMODEL.nlevels), int(grdROMS.eta_rho), int(grdROMS.xi_rho)), np.float)
+    urot = np.zeros((int(grdMODEL.nlevels), int(grdROMS.eta_rho), int(grdROMS.xi_rho)), float)
+    vrot = np.zeros((int(grdMODEL.nlevels), int(grdROMS.eta_rho), int(grdROMS.xi_rho)), float)
 
     urot, vrot = interp.interpolation.rotate(np.asarray(urot, order='F'),
                                              np.asarray(vrot, order='F'),
@@ -159,8 +159,8 @@ def rotate(grdROMS, grdMODEL, data, u, v):
 
 
 def interpolate2uv(grdROMS, grdMODEL, urot, vrot):
-    Zu = np.zeros((int(grdMODEL.nlevels), int(grdROMS.eta_u), int(grdROMS.xi_u)), np.float)
-    Zv = np.zeros((int(grdMODEL.nlevels), int(grdROMS.eta_v), int(grdROMS.xi_v)), np.float)
+    Zu = np.zeros((int(grdMODEL.nlevels), int(grdROMS.eta_u), int(grdROMS.xi_u)), float)
+    Zv = np.zeros((int(grdMODEL.nlevels), int(grdROMS.eta_v), int(grdROMS.xi_v)), float)
 
     # Interpolate from RHO points to U and V points for velocities
 
