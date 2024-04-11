@@ -66,7 +66,7 @@ def do_hor_interpolation_regular_grid(confM2R, mydata, myvar):
         pass
 
     index_roms, toxi, toeta, mymask = setup_indexes(confM2R, myvar)
-    array1 = np.zeros(index_roms, dtype=np.float)
+    array1 = np.zeros(index_roms, dtype=float)
 
     # 2D or 3D interpolation
     depth_levels = confM2R.grdMODEL.nlevels
