@@ -5,7 +5,15 @@ import xarray as xr
 from zarr.convenience import consolidate_metadata
 import IOverticalGrid
 import xesmf as xe
-import ESMF
+
+try:
+    import ESMF
+except:
+    try:
+        # The module name for ESMPy was changed in v8.4.0 from “ESMF” to “esmpy”
+        import esmpy as ESMF
+    except ImportError:
+        raise ImportError("[grd]: Could not find module ESMF/esmpy")
 
 __author__ = 'Trond Kristiansen'
 __email__ = 'me@trondkristiansen.com'

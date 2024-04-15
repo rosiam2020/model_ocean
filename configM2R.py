@@ -383,11 +383,14 @@ class Model2romsConfig(object):
             compile.compileallgfortran()
 
         if self.create_atmos_forcing or self.create_ocean_forcing:
-
             try:
                 import ESMF
-            except ImportError:
-                raise ImportError("Unable to import ESMF")
+            except:
+                try:
+                    # The module name for ESMPy was changed in v8.4.0 from “ESMF” to “esmpy”
+                    import esmpy as ESMF
+                except ImportError:
+                    raise ImportError("[M2R_configRunM2R]: Unable to import ESMF/esmpy")
             logging.info('[M2R_configRunM2R]==> Starting logfile for ESMF')
             ESMF.Manager(debug=True)
 
